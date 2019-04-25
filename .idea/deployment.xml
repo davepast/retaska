@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="BraincraftServer">
+    <serverData>
+      <paths name="BraincraftServer">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/retaska" local="$PROJECT_DIR$" web="/retaska" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/var/cache" />
+            <excludedPath local="true" path="/var/cache" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
