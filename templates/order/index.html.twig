@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vaše objednávka{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Objednávka</h1>
+</div>
+<div class="container-fluid">
+     <div class="row">
+         <div class="col-md-6">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+         </div>
+        <div class="col-md-6">
+            <div class="card" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Souhrn objednávky</h5>
+                    <table>
+                        <tr>
+                            <td>
+                                Produkt 1
+                            </td>
+                            <td align="right">
+                                Cena 1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Produkt 2
+                            </td>
+                            <td align="right">
+                                Cena 2
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Doprava
+                            </td>
+                            <td align="right">
+                                Cena 3
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Platba
+                            </td>
+                            <td align="right">
+                                Cena 4
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Suma</b>
+                            </td>
+                            <td align="right">
+                                <b>XXX CZK</b>
+                            </td>
+                        </tr>
+                    </table>
+                   </div>
+
+                <button class="btn btn-success">{{ button_label|default('Objednat') }}</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+     </div>
+</div>
+{% endblock %}
