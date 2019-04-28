@@ -17,7 +17,17 @@
             <h6 class="card-subtitle mb-2 text-muted">{{ product.stock }} ks skladem</h6>
             <p class="card-text">{{ product.description|capitalize }}</p>
             <p class="card-text">Kategorie: {{ product.category.description|capitalize }}</p>
-            <a href="{{ path('list')}}" class="card-link">Zpět na seznam produktů</a>
+            <a href="{{ path('list')}}" class="btn btn-info">Zpět na seznam produktů</a>
+            <div class="form-group">
+                <label for="sel1">Množství</label>
+                <select class="form-control" id="sel1" style="width: 55px">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+                <button class="btn btn-success">Přidat do košíku</button>
+            </div>
         </div>
     </div>
 </div>

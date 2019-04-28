@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="BraincraftServer">
+  <component name="PublishConfigData" autoUpload="Always" serverName="BraincraftServer" uploadOnCheckin="e7a5b96f-b196-4951-a955-c26b46f787ca">
     <serverData>
       <paths name="BraincraftServer">
         <serverdata>
@@ -14,6 +14,7 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myUploadOnCheckinName" value="BraincraftServer" />
     <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
