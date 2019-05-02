@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CountryOptionsRepository")
  */
-class Product
+class CountryOptions
 {
     /**
      * @ORM\Id()
@@ -24,24 +24,9 @@ class Product
     private $name;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
     private $description;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $price;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $stock;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
-     */
-    private $category;
 
     public function __construct()
     {
@@ -73,42 +58,6 @@ class Product
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getStock(): ?int
-    {
-        return $this->stock;
-    }
-
-    public function setStock(int $stock): self
-    {
-        $this->stock = $stock;
-
-        return $this;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
 
         return $this;
     }

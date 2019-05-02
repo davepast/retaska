@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PaymentOptionsRepository")
  */
-class Product
+class PaymentOptions
 {
     /**
      * @ORM\Id()
@@ -24,7 +24,7 @@ class Product
     private $name;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", length=255)
      */
     private $description;
 
@@ -32,16 +32,6 @@ class Product
      * @ORM\Column(type="float")
      */
     private $price;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $stock;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
-     */
-    private $category;
 
     public function __construct()
     {
@@ -89,26 +79,33 @@ class Product
         return $this;
     }
 
-    public function getStock(): ?int
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
     {
-        return $this->stock;
+        return $this->orders;
     }
 
-    public function setStock(int $stock): self
+    public function addOrder(Order $order): self
     {
-        $this->stock = $stock;
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setPayment($this);
+        }
 
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function removeOrder(Order $order): self
     {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
+        if ($this->orders->contains($order)) {
+            $this->orders->removeElement($order);
+            // set the owning side to null (unless already changed)
+            if ($order->getPayment() === $this) {
+                $order->setPayment(null);
+            }
+        }
 
         return $this;
     }

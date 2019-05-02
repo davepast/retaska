@@ -1,4 +1,3 @@
-{% set route = app.request.attributes.get('_route') %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">reTaska.cz</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,11 +15,8 @@
             <li class="nav-item {{ route ==  'contact' ? 'active' }}">
                 <a class="nav-link" href="{{ path('contact') }}" {{ route ==  'contact' ? 'onclick="return false;"' }}>Kontakt</a>
             </li>
-            <li class="nav-item {{ route ==  'admin_homepage' ? 'active' }}">
-                <a class="nav-link" href="{{ path('admin_homepage') }}">Administrace</a>
-            </li>
-            <li class="nav-item {{ route ==  'order' ? 'active' }}">
-                <a class="nav-link" href="{{ path('order') }}" {{ route ==  'order' ? 'onclick="return false;"' }}>Košík</a>
+            <li class="nav-item {{ route ==  'contact' ? 'active' }}">
+                <a class="nav-link" href="{{ path('contact') }}" {{ route ==  'contact' ? 'onclick="return false;"' }}>Košík</a>
             </li>
 
 
@@ -35,6 +31,11 @@
 
         </ul>
         <form class="form-inline my-2 my-lg-0">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ route ==  'admin_homepage' ? 'active' }}">
+                    <a class="nav-link" href="{{ path('admin_homepage') }}">Administrace</a>
+                </li>
+            </ul>
             <input class="form-control mr-sm-2" type="search" placeholder="Vyhledávání" aria-label="Hledat">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Hledat</button>
         </form>

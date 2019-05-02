@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CountryOptions index{% endblock %}
+
+{% block body %}
+    <h1>CountryOptions index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for country_option in country_options %}
+            <tr>
+                <td>{{ country_option.id }}</td>
+                <td>{{ country_option.name }}</td>
+                <td>{{ country_option.description }}</td>
+                <td>
+                    <a href="{{ path('country_options_show', {'id': country_option.id}) }}">show</a>
+                    <a href="{{ path('country_options_edit', {'id': country_option.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('country_options_new') }}">Create new</a>
+{% endblock %}

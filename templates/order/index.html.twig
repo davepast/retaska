@@ -1,74 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vaše objednávka{% endblock %}
+{% block title %}Order index{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Order index</h1>
 
-<div class="example-wrapper">
-    <h1>Objednávka</h1>
-</div>
-<div class="container-fluid">
-     <div class="row">
-         <div class="col-md-6">
-            {{ form_start(form) }}
-                {{ form_widget(form) }}
-         </div>
-        <div class="col-md-6">
-            <div class="card" style="width: 20rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Souhrn objednávky</h5>
-                    <table>
-                        <tr>
-                            <td>
-                                Produkt 1
-                            </td>
-                            <td align="right">
-                                Cena 1
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Produkt 2
-                            </td>
-                            <td align="right">
-                                Cena 2
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Doprava
-                            </td>
-                            <td align="right">
-                                Cena 3
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Platba
-                            </td>
-                            <td align="right">
-                                Cena 4
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>Suma</b>
-                            </td>
-                            <td align="right">
-                                <b>XXX CZK</b>
-                            </td>
-                        </tr>
-                    </table>
-                   </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Count</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Name</th>
+                <th>AddressStreet</th>
+                <th>AddressCity</th>
+                <th>AddressZIP</th>
+                <th>Note</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.count }}</td>
+                <td>{{ order.email }}</td>
+                <td>{{ order.telephone }}</td>
+                <td>{{ order.name }}</td>
+                <td>{{ order.addressStreet }}</td>
+                <td>{{ order.addressCity }}</td>
+                <td>{{ order.addressZIP }}</td>
+                <td>{{ order.note }}</td>
+                <td>
+                    <a href="{{ path('order_show', {'id': order.id}) }}">show</a>
+                    <a href="{{ path('order_edit', {'id': order.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-                <button class="btn btn-success">{{ button_label|default('Objednat') }}</button>
-                {{ form_end(form) }}
-            </div>
-        </div>
-     </div>
-</div>
+    <a href="{{ path('order_new') }}">Create new</a>
 {% endblock %}

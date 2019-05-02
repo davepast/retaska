@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CountryOptions{% endblock %}
+
+{% block body %}
+    <h1>CountryOptions</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ country_option.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ country_option.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ country_option.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('country_options_index') }}">back to list</a>
+
+    <a href="{{ path('country_options_edit', {'id': country_option.id}) }}">edit</a>
+
+    {{ include('country_options/_delete_form.html.twig') }}
+{% endblock %}
