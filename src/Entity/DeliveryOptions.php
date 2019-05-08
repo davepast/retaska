@@ -33,9 +33,15 @@ class DeliveryOptions
      */
     private $price;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ordering", mappedBy="delivery")
+     */
+    private $orderings;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->orderings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,6 +81,37 @@ class DeliveryOptions
     public function setPrice(float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ordering[]
+     */
+    public function getOrderings(): Collection
+    {
+        return $this->orderings;
+    }
+
+    public function addOrdering(Ordering $ordering): self
+    {
+        if (!$this->orderings->contains($ordering)) {
+            $this->orderings[] = $ordering;
+            $ordering->setDelivery($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdering(Ordering $ordering): self
+    {
+        if ($this->orderings->contains($ordering)) {
+            $this->orderings->removeElement($ordering);
+            // set the owning side to null (unless already changed)
+            if ($ordering->getDelivery() === $this) {
+                $ordering->setDelivery(null);
+            }
+        }
 
         return $this;
     }

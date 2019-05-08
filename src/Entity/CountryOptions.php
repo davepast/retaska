@@ -28,9 +28,15 @@ class CountryOptions
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ordering", mappedBy="addressCountry")
+     */
+    private $orderings;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->orderings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -58,6 +64,37 @@ class CountryOptions
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ordering[]
+     */
+    public function getOrderings(): Collection
+    {
+        return $this->orderings;
+    }
+
+    public function addOrdering(Ordering $ordering): self
+    {
+        if (!$this->orderings->contains($ordering)) {
+            $this->orderings[] = $ordering;
+            $ordering->setAddressCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdering(Ordering $ordering): self
+    {
+        if ($this->orderings->contains($ordering)) {
+            $this->orderings->removeElement($ordering);
+            // set the owning side to null (unless already changed)
+            if ($ordering->getAddressCountry() === $this) {
+                $ordering->setAddressCountry(null);
+            }
+        }
 
         return $this;
     }

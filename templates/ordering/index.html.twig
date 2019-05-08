@@ -1,0 +1,55 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Ordering index{% endblock %}
+
+{% block body %}
+    <h1>Ordering index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Product Name</th>
+                <th>Count</th>
+                <th>Product Price</th>
+                <th>Total Price</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Name</th>
+                <th>AddressStreet</th>
+                <th>AddressCity</th>
+                <th>AddressZip</th>
+                <th>Notes</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ordering in orderings %}
+            <tr>
+                <td>{{ ordering.id }}</td>
+                <td>{{ ordering.productName }}</td>
+                <td>{{ ordering.count }}</td>
+                <td>{{ ordering.productPrice }}</td>
+                <td>{{ ordering.totalPrice }}</td>
+                <td>{{ ordering.email }}</td>
+                <td>{{ ordering.telephone }}</td>
+                <td>{{ ordering.name }}</td>
+                <td>{{ ordering.addressStreet }}</td>
+                <td>{{ ordering.addressCity }}</td>
+                <td>{{ ordering.addressZip }}</td>
+                <td>{{ ordering.notes }}</td>
+                <td>{{ ordering.status }}</td>
+                <td>
+                    <a href="{{ path('ordering_show', {'id': ordering.id}) }}">show</a>
+                    <a href="{{ path('ordering_edit', {'id': ordering.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

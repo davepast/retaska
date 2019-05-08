@@ -1,4 +1,4 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}{{ homepage.heading }}{% endblock %}
 
@@ -9,12 +9,10 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Administrace</h1>
+    <h1>{{ homepage.heading }}</h1>
+
+    <h3>O vyřízení objednávky Vás budeme informovat emailem.</h3>
+
+    <a href="{{ path('homepage') }}">Návrat na hlavní stránku</a>
 </div>
-
-    <ul><a href="{{ path('product_index') }}">Správa produktů</a></ul>
-    <ul><a href="{{ path('category_index') }}">Správa kategorií</a></ul>
-    <ul><a href="{{ path('ordering_index') }}">Správa objednávek</a></ul>
-
-
 {% endblock %}

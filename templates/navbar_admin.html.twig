@@ -26,13 +26,17 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item {{ route ==  'admin_homepage' ? 'active' }}">
                     <a class="nav-link" href="{{ path('admin_homepage') }}">Administrace</a>
+                </li>
                 <li class="nav-item {{ route starts with  'product' ? 'active' }}">
                     <a class="nav-link" href="{{ path('product_index') }}" {{ route starts with  'product' ? 'onclick="return false;"' }}>Správa produktů</a>
                 </li>
                 <li class="nav-item {{ route starts with  'category' ? 'active' }}">
                     <a class="nav-link" href="{{ path('category_index') }}" {{ route starts with  'category' ? 'onclick="return false;"' }}>Správa kategorií</a>
                 </li>
+                <li class="nav-item {{ route starts with  'ordering' ? 'active' }}">
+                    <a class="nav-link" href="{{ path('ordering_index') }}" {{ route starts with  'ordering' ? 'onclick="return false;"' }}>Správa objednávek</a>
                 </li>
+
             </ul>
             <input class="form-control mr-sm-2" type="search" placeholder="Vyhledávání" aria-label="Hledat">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Hledat</button>

@@ -33,9 +33,14 @@ class PaymentOptions
      */
     private $price;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ordering", mappedBy="payment")
+     */
+    private $orderings;
+
     public function __construct()
     {
-        $this->orders = new ArrayCollection();
+        $this->orderings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,30 +85,30 @@ class PaymentOptions
     }
 
     /**
-     * @return Collection|Order[]
+     * @return Collection|Ordering[]
      */
-    public function getOrders(): Collection
+    public function getOrderings(): Collection
     {
-        return $this->orders;
+        return $this->orderings;
     }
 
-    public function addOrder(Order $order): self
+    public function addOrdering(Ordering $ordering): self
     {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->setPayment($this);
+        if (!$this->orderings->contains($ordering)) {
+            $this->orderings[] = $ordering;
+            $ordering->setPayment($this);
         }
 
         return $this;
     }
 
-    public function removeOrder(Order $order): self
+    public function removeOrdering(Ordering $ordering): self
     {
-        if ($this->orders->contains($order)) {
-            $this->orders->removeElement($order);
+        if ($this->orderings->contains($ordering)) {
+            $this->orderings->removeElement($ordering);
             // set the owning side to null (unless already changed)
-            if ($order->getPayment() === $this) {
-                $order->setPayment(null);
+            if ($ordering->getPayment() === $this) {
+                $ordering->setPayment(null);
             }
         }
 

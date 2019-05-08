@@ -71,4 +71,16 @@ class HomepageController extends AbstractController
             'product' => $product
         ]);
     }
+
+    /**
+     * @Route("/thankyou", name="thankyou")
+     */
+    public function thankyou()
+    {
+        return $this->render('homepage/thankyou.html.twig', [
+            'homepage'=> [
+                'heading' => 'Děkujeme za objednávku'
+            ]
+        ]);
+    }
 }

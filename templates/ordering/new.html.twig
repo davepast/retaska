@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Ordering{% endblock %}
+
+{% block body %}
+    <h1>{{ route ==  'ordering' ? 'Nová objednávka zboží  ' ~ product.name : 'Nová objednávka'}}</h1>
+    {{ include('ordering/_form.html.twig') }}
+
+    <a href="{{ path('ordering_index') }}">back to list</a>
+{% endblock %}
