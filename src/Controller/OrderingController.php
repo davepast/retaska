@@ -73,10 +73,10 @@ class OrderingController extends AbstractController
             $entityManager->persist($ordering);
             $entityManager->flush();
 
-            return $this->redirectToRoute('ordering_index');
+            return $this->redirectToRoute('thankyou');
         }
 
-        return $this->render('homepage/thankyou.html.twig', [
+        return $this->render('ordering/new.html.twig', [
             'ordering' => $ordering,
             'product' => $product,
             'form' => $form->createView(),
@@ -96,7 +96,7 @@ class OrderingController extends AbstractController
     /**
      * @Route("/ordering/{id}/edit", name="ordering_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Ordering $ordering): Response
+    public function edit(Request $request, Ordering $ordering, Product $product): Response
     {
         $form = $this->createForm(OrderingType::class, $ordering);
         $form->handleRequest($request);
@@ -111,6 +111,7 @@ class OrderingController extends AbstractController
 
         return $this->render('ordering/edit.html.twig', [
             'ordering' => $ordering,
+            'product' => $product,
             'form' => $form->createView(),
         ]);
     }

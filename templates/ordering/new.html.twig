@@ -4,7 +4,89 @@
 
 {% block body %}
     <h1>{{ route ==  'ordering' ? 'Nová objednávka zboží  ' ~ product.name : 'Nová objednávka'}}</h1>
-    {{ include('ordering/_form.html.twig') }}
+    <div class="row">
+        <div class="col md-6">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+            <button class="btn btn-success">{{ button_label|default('Odeslat objednávku') }}</button>
+            {{ form_end(form) }}
+        </div>
+        <div class="col md-6">
+    <div class="example-wrapper">
+        <div class="card" style="height: 16rem;">
+            <div class="card-body">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>{{ product.name|capitalize }}</td>
+                        <td><span id="total_count"></span></td>
+                        <td><span id="total_product"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Doprava </td>
+                        <td><span id="total_delivery_name"></span></td>
+                        <td><span id="total_delivery"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Platba </td>
+                        <td><span id="total_payment_name"></span></td>
+                        <td><span id="total_payment"></span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Suma za objednávku</b></td>
+                        <td></td>
+                        <td><b><span id="total_pricing"></span></b></td>
+                    </tr>
+                    </tbody>
+                </table>
 
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
     <a href="{{ path('ordering_index') }}">back to list</a>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('#ordering_count').val(1);
+        let productPrice = ({{ product.price }});
+        let count = $('#ordering_count').val();
+        let delivery = $('#ordering_delivery option:selected').attr('data-delivery');
+        let payment = $('#ordering_payment option:selected').attr('data-payment');
+        //function updatePrice() {
+        function updatePrice () {
+            let productPrice = ({{ product.price }});
+            let count = $('#ordering_count').val();
+            let delivery = parseInt($('#ordering_delivery option:selected').attr('data-delivery'));
+            let payment = parseInt($('#ordering_payment option:selected').attr('data-payment'));
+
+            let totalProductPrice = productPrice * count;
+            let totalPrice = totalProductPrice + delivery + payment;
+
+            $('#total_pricing').text(totalPrice + 'Kč');
+            $('#total_product').text(totalProductPrice + 'Kč');
+            $('#total_payment').text(payment + 'Kč');
+            $('#total_delivery').text(delivery + 'Kč');
+            $('#total_count').text(count + ' ks');
+            $('#total_delivery_name').text($('#ordering_delivery option:selected').text());
+            $('#total_payment_name').text($('#ordering_payment option:selected').text());
+        };
+
+        $(document).ready(function () {
+            updatePrice();
+        });
+
+        $('#ordering_count, #ordering_payment, #ordering_delivery').on('change', function (){
+            updatePrice()
+        });
+
+
+        //$('#ordering_count').on('change', updatePrice());
+        //$('#ordering_delivery').on('change', updatePrice());
+        //$('#ordering_payment').on('change', updatePrice());
+
+        //$('#ordering_count, #ordering_delivery, #ordering_payment').on('change', updatePrice());
+    </script>
 {% endblock %}

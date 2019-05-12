@@ -31,11 +31,18 @@ class OrderingType extends AbstractType
             ])
             ->add('delivery', EntityType::class, [
                 'class' => DeliveryOptions::class,
-                'choice_label' => 'description'
+                'choice_label' => 'description',
+                'choice_attr' => function(DeliveryOptions $deliveryOptions) {
+                    return ['data-delivery' => $deliveryOptions->getPrice()];
+            }
             ])
             ->add('payment', EntityType::class, [
                 'class' => PaymentOptions::class,
-                'choice_label' => 'description'
+                'choice_label' => 'description',
+                'choice_attr' => function(PaymentOptions $paymentOptions) {
+                    return ['data-payment' => $paymentOptions->getPrice()]
+                        ;
+            }
             ])
         ;
     }
