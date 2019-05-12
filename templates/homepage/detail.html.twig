@@ -17,19 +17,39 @@
             <h6 class="card-subtitle mb-2 text-muted">{{ product.stock }} ks skladem</h6>
             <p class="card-text">{{ product.description|capitalize }}</p>
             <p class="card-text">Kategorie: {{ product.category.description|capitalize }}</p>
-            <a href="{{ path('list')}}" class="btn btn-info">Zpět na seznam produktů</a>
-            <div class="form-group">
-                <label for="sel1">Množství</label>
+            <table>
+                <tbody>
+                <tr>
+                    <td>
+                        <a href="{{ path('list')}}" class="btn btn-info">Zpět na seznam produktů</a>
+                    </td>
+                    <td>
+                        {% if product.stock <= 0 %}
+                            Není skladem
+                            <script>
+                                $('a.btn.btn-success#'+{{ product.id }}).hide();
+                            </script>
+                        {% else %}
+                            <select class="form-control" id="sel1" style="width: 55px">
+                                {% for i in range (0, product.stock) %}
+                                    <option>{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('ordering', {id: product.id} )}}" class="btn btn-success">Přidat do košíku</a>
+                    </td>
 
-                <select class="form-control" id="sel1" style="width: 55px">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                </select>
-                <a href="{{ path('ordering', {id: product.id} )}}" class="btn btn-success">Přidat do košíku</a>
-            </div>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+    {% if product.stock <= 0 %}
+        <script>
+            $('a.btn.btn-success').hide();
+        </script>
+    {% endif %}
 {% endblock %}

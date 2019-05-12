@@ -1,116 +1,41 @@
-<!-- Footer -->
 <br>
 <footer class="page-footer font-small blue pt-4" style="background: darkgrey; color: #000;">
-
-    <!-- Footer Links -->
     <div class="container-fluid text-center text-md-left">
+        <div class="row justify-content-md-center">
+            <div class="col-md-7 mt-md-0 mt-7">
 
-        <!-- Grid row -->
-        <div class="row">
 
-            <!-- Grid column -->
-            <div class="col-md-6 mt-md-0 mt-3">
-
-                <!-- Content -->
-                <h5 class="text-uppercase">Eshop reTaška.cz</h5>
-                <p>Chráníme oceány, ulehčujeme nakupování</p>
-
-            </div>
-            <!-- Grid column -->
-
-            <hr class="clearfix w-100 d-md-none pb-3">
-
-            <!-- Grid column -->
-            <div class="col-md-3 mb-md-0 mb-3">
-
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item {{ route ==  'homepage' ? 'active' }}">
-                        <a class="nav-link" href="{{ path('homepage') }}" {{ route ==  'homepage' ? 'onclick="return false;"' }}>Domů</a>
-                    </li>
-                    <li class="nav-item {{ route ==  'list' ? 'active' }}">
-                        <a class="nav-link" href="{{ path('list') }}" {{ route ==  'list' ? 'onclick="return false;"' }}>Seznam produktů</a>
-                    </li>
-                    <li class="nav-item {{ route ==  'contact' ? 'active' }}">
-                        <a class="nav-link" href="{{ path('contact') }}" {{ route ==  'contact' ? 'onclick="return false;"' }}>Kontakt</a>
-                    </li>
-                </ul>
-
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-3 mb-md-0 mb-3">
-
-                <!-- Links -->
-                <h5 class="text-uppercase">reTaška.cz</h5>
-                <table>
-
+            <table>
+                <tbody>
                 <tr>
-                    <td><b>Telefon:</b></td>
-                    <td>+420 774 219 386</td>
+                    <td>
+                        <b>Eshop reTaška.cz</b>
+                    </td>
+                    <td>
+                        |
+                    </td>
+                    <td>
+                        <a style="color:black" class="nav-link {{ route ==  'homepage' ? 'active' }}" href="{{ path('homepage') }}" {{ route ==  'homepage' ? 'onclick="return false;"' }}>Domů</a>
+                    </td>
+                    <td>
+                        |
+                    </td>
+                    <td>
+                        <a style="color:black" class="nav-link {{ route ==  'list' ? 'active' }}" href="{{ path('list') }}" {{ route ==  'list' ? 'onclick="return false;"' }}>Produkty</a>
+                    </td>
+                    <td>
+                        <b>Telefon: </b>+420 774 219 386
+                    </td>
+                    <td>
+                        |<b>Email</b> info@retaska.cz
+                    </td>
                 </tr>
-                    <tr>
-                        <td><b>Email</b>:</b></td>
-                        <td>retaska@retaska.cz</td>
-                    </tr>
-
-                </table>
+                </tbody>
+            </table>
             </div>
-            <!-- Grid column -->
-
+            <hr class="clearfix w-100 d-md-none pb-3">
         </div>
-        <!-- Grid row -->
-
     </div>
-    <!-- Footer Links -->
-
-    <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2019 Copyright David Pastuszek
     </div>
-    <!-- Copyright -->
-
 </footer>
-<!-- Footer -->
-
-<!--<footer class="footer navbar-expand-lg navbar-light bg-light fixed-bottom">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item {{ route ==  'homepage' ? 'active' }}">
-                <a class="nav-link" href="{{ path('homepage') }}" {{ route ==  'homepage' ? 'onclick="return false;"' }}>Domů</a>
-            </li>
-            <li class="nav-item {{ route ==  'list' ? 'active' }}">
-                <a class="nav-link" href="{{ path('list') }}" {{ route ==  'list' ? 'onclick="return false;"' }}>Seznam produktů</a>
-            </li>
-            <li class="nav-item {{ route ==  'contact' ? 'active' }}">
-                <a class="nav-link" href="{{ path('contact') }}" {{ route ==  'contact' ? 'onclick="return false;"' }}>Kontakt</a>
-            </li>
-            <li class="nav-item {{ route ==  'contact' ? 'active' }}">
-                <a class="nav-link" href="{{ path('contact') }}" {{ route ==  'contact' ? 'onclick="return false;"' }}>Košík</a>
-            </li>
-
--->
-
-
-
-            <!-- disabled item
-             <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li> -->
-
-<!--
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item {{ route ==  'admin_homepage' ? 'active' }}">
-                    <a class="nav-link" href="{{ path('admin_homepage') }}">Administrace</a>
-                </li>
-            </ul>
-            <input class="form-control mr-sm-2" type="search" placeholder="Vyhledávání" aria-label="Hledat">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Hledat</button>
-        </form>
-    </div>
-</footer> -->

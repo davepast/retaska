@@ -26,7 +26,7 @@ class OrderingController extends AbstractController
     }
 
     /**
-     * @Route("/ordering", name="ordering_new", methods={"GET","POST"})
+     * @Route("/admin/ordering", name="ordering_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -84,7 +84,7 @@ class OrderingController extends AbstractController
     }
 
     /**
-     * @Route("/ordering/{id}", name="ordering_show", methods={"GET"})
+     * @Route("/admin/ordering/{id}", name="ordering_show", methods={"GET"})
      */
     public function show(Ordering $ordering): Response
     {
@@ -94,7 +94,7 @@ class OrderingController extends AbstractController
     }
 
     /**
-     * @Route("/ordering/{id}/edit", name="ordering_edit", methods={"GET","POST"})
+     * @Route("admin/ordering/{id}/edit", name="ordering_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Ordering $ordering, Product $product): Response
     {
@@ -117,7 +117,7 @@ class OrderingController extends AbstractController
     }
 
     /**
-     * @Route("/ordering/{id}", name="ordering_delete", methods={"DELETE"})
+     * @Route("/admin/ordering/{id}", name="ordering_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Ordering $ordering): Response
     {

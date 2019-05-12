@@ -7,32 +7,68 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
+    <div class="example-wrapper">
+        <h1>{{ homepage.heading }}</h1>
+    </div>
     <div class="container-fluid">
         <div class="col-md-12">
-<div class="example-wrapper">
-    <h1>{{ homepage.heading }}</h1>
-</div>
+
     <div class="row">
-    {% for product in products %}
-        {% if loop.index0 % 3 == 0 %}
-            </div><br><div class="row">
-        {% endif %}
-        <div class="col-sm-4">
-            <div class="card" style="width: 18rem; height: 16rem;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.name|capitalize }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ product.stock }} ks skladem</h6>
-                    {% if product.description|length > 65 %}
-                        <a class="card-text">{{ product.description|slice(0, 65) |capitalize }} <a href="{{ path('detail', {'id': product.id}) }}">...více</a></p>
-                    {% else %}
-                    <p class="card-text">{{ product.description|capitalize }}</p>
-                    {% endif %}
-                    <p class="card-text">Kategorie: {{ product.category.description|capitalize }}</p>
-                    <a href="{{ path('detail', {'id': product.id }) }}" class="btn btn-info">Detail</a>
-                    <a href="{{ path('ordering', {id: product.id} )}}" class="btn btn-success">Objednat</a>
+            <div class="list-group list-group-horizontal">
+                <a href="#" id="selector-all" onclick="$('div.card').show(); $('a.list-group-item.list-group-item-action').removeClass('active'); $('#selector-all').addClass('active');" class="list-group-item list-group-item-action active">Všechno</a>
+                {% for category in categories %}
+                <a href="#" id="category-selector-not-all-category-{{ category.id }}" class="list-group-item list-group-item-action" onclick="$('div.card').hide(); $('div.card#category-{{ category.id }}').show(); $('a.list-group-item.list-group-item-action.active').toggleClass('active'); $('#category-selector-not-all-category-{{ category.id }}').removeClass('active'); $('#category-selector-not-all-category-{{ category.id }}').addClass('active')">{{ category.description }}</a>
+                {% endfor %}
+        </div>
+        {% for product in products %}
+            {% if loop.index0 % 3 == 0 %}
+                </div><br><div class="row">
+            {% endif %}
+            <div class="col-sm-4">
+                <div class="card" style="width: 18rem; " id="category-{{ product.category.id }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name|capitalize }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ product.stock }} ks skladem</h6>
+                        {% if product.description|length > 65 %}
+                            <a class="card-text">{{ product.description|slice(0, 65) |capitalize }} <a href="{{ path('detail', {'id': product.id}) }}">...více</a></p>
+                        {% else %}
+                        <p class="card-text">{{ product.description|capitalize }}</p>
+                        {% endif %}
+                                <p class="card-text">Kategorie: {{ product.category.description|capitalize }}</p>
+                                <table>
+                                    <td>
+                                        <a href="{{ path('detail', {'id': product.id }) }}" class="btn btn-info">Detail</a>
+                                    </td>
+                                    <td>
+                                        {% if product.stock <= 0 %}
+                                        Není skladem
+                                            <script>
+                                                $('a.btn.btn-success#'+{{ product.id }}).hide();
+                                            </script>
+                                        {% else %}
+                                            <select class="form-control" id="sel1" style="width: 55px">
+                                                {% for i in range (0, product.stock) %}
+                                                    <option>{{ i }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a id="{{ product.id}}" href="{{ path('ordering', {id: product.id} )}}" class="btn btn-success">Objednat</a>
+                                    </td>
+                                </table>
+                                {% if product.stock <= 0 %}
+                                <script>
+                                    $('a.btn.btn-success#'+{{ product.id }}).hide();
+                                </script>
+                                {% endif %}
+
+
+
+
+                    </div>
                 </div>
             </div>
-        </div>
     {% endfor %}
         </div>
     </div>

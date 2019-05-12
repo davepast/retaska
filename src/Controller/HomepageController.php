@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Product;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,13 +51,14 @@ class HomepageController extends AbstractController
     /**
      * @Route("/list", name="list")
      */
-    public function list(ProductRepository $productRepository)
+    public function list(ProductRepository $productRepository, CategoryRepository $categoryRepository)
     {
         return $this->render('homepage/list.html.twig', [
             'homepage'=> [
                 'heading' => 'Seznam produktů'
             ],
-            'products' => $productRepository->findAll()
+            'products' => $productRepository->findAll(),
+            'categories' => $categoryRepository->findAll()
         ]);
     }
 

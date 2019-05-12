@@ -2,6 +2,11 @@
 
 {% block title %}{{ homepage.heading }}{% endblock %}
 
+{% block stylesheets %}
+    <script src="https://api.mapy.cz/loader.js"></script><script>Loader.load()</script>
+
+{% endblock %}
+
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -15,7 +20,19 @@
     <table>
         <tr>
             <td><b>Adresa:</b></td>
-            <td>Hvězdova 1716/2b, 140 00 Praha 4</td>
+            <td>Strossmayerovo náměstí 976/1, 170 00 Praha 7</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div id="mapa" style="width:420px; height:280px;"></div>
+                <script type="text/javascript">
+                    var stred = SMap.Coords.fromWGS84(14.4332365, 50.0988782);
+                    var mapa = new SMap(JAK.gel("mapa"), stred, 17);
+                    mapa.addDefaultLayer(SMap.DEF_BASE).enable();
+                    mapa.addDefaultControls();
+                </script>
+            </td>
         </tr>
         <tr>
             <td><b>Telefon:</b></td>
@@ -35,4 +52,6 @@
         </tr>
     </table>
 </div>
+
+
 {% endblock %}
