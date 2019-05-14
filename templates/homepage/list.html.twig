@@ -28,7 +28,7 @@
                 <div class="card" style="width: 18rem; " id="category-{{ product.category.id }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name|capitalize }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ product.stock }} ks skladem</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">{% if product.stock < 1 %} Není skladem {% else %} {{ product.stock }} ks skladem {% endif %}</h6>
                         {% if product.description|length > 65 %}
                             <a class="card-text">{{ product.description|slice(0, 65) |capitalize }} <a href="{{ path('detail', {'id': product.id}) }}">...více</a></p>
                         {% else %}
