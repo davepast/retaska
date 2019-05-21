@@ -49,7 +49,7 @@ class HomepageController extends AbstractController
     }
 
     /**
-     * @Route("/list", name="list")
+     * @Route("/list/", name="list")
      */
     public function list(ProductRepository $productRepository, CategoryRepository $categoryRepository)
     {
@@ -58,6 +58,20 @@ class HomepageController extends AbstractController
                 'heading' => 'Seznam produktů'
             ],
             'products' => $productRepository->findAll(),
+            'categories' => $categoryRepository->findAll()
+        ]);
+    }
+
+    /**
+     * @Route("/list/{id}", name="list_id")
+     */
+    public function listCategory(ProductRepository $productRepository, CategoryRepository $categoryRepository, $id)
+    {
+        return $this->render('homepage/list.html.twig', [
+            'homepage'=> [
+                'heading' => 'Seznam produktů'
+            ],
+            'products' => $productRepository->findBy(['category' => $id]),
             'categories' => $categoryRepository->findAll()
         ]);
     }

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Ordering{% endblock %}
+{% block title %}Nová objednávka{% endblock %}
 
 {% block body %}
-    <h1>{{ route ==  'ordering' ? 'Nová objednávka zboží  ' ~ product.name : 'Nová objednávka'}}</h1>
+    <h1>Vytvoření objednávky</h1>
     <div class="row">
         <div class="col md-6">
             {{ form_start(form) }}
@@ -17,11 +17,13 @@
             <div class="card-body">
                 <table>
                     <tbody>
+                    {% for product in products %}
                     <tr>
                         <td>{{ product.name|capitalize }}</td>
-                        <td><span id="total_count"></span></td>
-                        <td><span id="total_product"></span></td>
+                        <td><span id="total_count">{{ product.count }} ks</span></td>
+                        <td><span class="total_product">{{ product.count * product.price }} Kč</span></td>
                     </tr>
+                    {% endfor %}
                     <tr>
                         <td>Doprava </td>
                         <td><span id="total_delivery_name"></span></td>
@@ -50,35 +52,31 @@
 
 {% block javascripts %}
     <script>
-        $('#ordering_count').val(1);
-        let productPrice = ({{ product.price }});
-        let count = $('#ordering_count').val();
+        let sumPrice = 0;
+        $('.total_product').each(function() {
+            sumPrice += parseInt($(this).text());
+        });
+        let totalPriceProducts = sumPrice;
         let delivery = $('#ordering_delivery option:selected').attr('data-delivery');
         let payment = $('#ordering_payment option:selected').attr('data-payment');
-        //function updatePrice() {
         function updatePrice () {
-            let productPrice = ({{ product.price }});
-            let count = $('#ordering_count').val();
             let delivery = parseInt($('#ordering_delivery option:selected').attr('data-delivery'));
             let payment = parseInt($('#ordering_payment option:selected').attr('data-payment'));
 
-            let totalProductPrice = productPrice * count;
-            let totalPrice = totalProductPrice + delivery + payment;
+            let totalPrice = delivery + payment + totalPriceProducts;
 
-            $('#total_pricing').text(totalPrice + 'Kč');
-            $('#total_product').text(totalProductPrice + 'Kč');
             $('#total_payment').text(payment + 'Kč');
             $('#total_delivery').text(delivery + 'Kč');
-            $('#total_count').text(count + ' ks');
             $('#total_delivery_name').text($('#ordering_delivery option:selected').text());
             $('#total_payment_name').text($('#ordering_payment option:selected').text());
+            $('#total_pricing').text( totalPrice + ' Kč');
         };
 
         $(document).ready(function () {
             updatePrice();
         });
 
-        $('#ordering_count, #ordering_payment, #ordering_delivery').on('change', function (){
+        $('#ordering_payment, #ordering_delivery').on('change', function (){
             updatePrice()
         });
 

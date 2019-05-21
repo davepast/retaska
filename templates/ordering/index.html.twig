@@ -9,9 +9,6 @@
         <thead>
             <tr>
                 <th>Order Id</th>
-                <th>Product Name</th>
-                <th>Count</th>
-                <th>Product Price</th>
                 <th>Total Price</th>
                 <th>Email</th>
                 <th>Telephone</th>
@@ -27,10 +24,7 @@
         <tbody>
         {% for ordering in orderings %}
             <tr>
-                <td>{{ ordering.id }}</td>
-                <td>{{ ordering.productName }}</td>
-                <td>{{ ordering.count }}</td>
-                <td>{{ ordering.productPrice }}</td>
+                <td>{{ ordering.id }}</td>s
                 <td>{{ ordering.totalPrice }}</td>
                 <td>{{ ordering.email }}</td>
                 <td>{{ ordering.telephone }}</td>

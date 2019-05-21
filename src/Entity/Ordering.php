@@ -18,11 +18,6 @@ class Ordering
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="orderings")
-     */
-    private $product;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Email(message="Prosím zadejte platný email")
      */
@@ -30,25 +25,9 @@ class Ordering
     private $email;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $count;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $telephone;
-
-    /**
-     * @ORM\Column(type="integer")
-     *
-     */
-    private $productPrice;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $productName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -106,6 +85,11 @@ class Ordering
      *
      */
     private $totalPrice;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $products;
 
     public function getId(): ?int
     {
@@ -302,5 +286,22 @@ class Ordering
         $this->productPrice = $productPrice;
 
         return $this;
+    }
+
+    public function getOrderedProducts(): ?array
+    {
+        return $this->products;
+    }
+
+    public function setOrderedProducts(?array $products): self
+    {
+        $this->products = $products;
+
+        return $this;
+    }
+
+    public function addProduct($product)
+    {
+        $this->products[] = $product;
     }
 }

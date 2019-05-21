@@ -9,14 +9,14 @@
             <li class="nav-item {{ route ==  'homepage' ? 'active' }}">
                 <a class="nav-link" href="{{ path('homepage') }}" {{ route ==  'homepage' ? 'onclick="return false;"' }}>Domů</a>
             </li>
-            <li class="nav-item {{ route ==  'list' ? 'active' }}">
+            <li class="nav-item {{ route starts with 'list' ? 'active' }}">
                 <a class="nav-link" href="{{ path('list') }}" {{ route ==  'list' ? 'onclick="return false;"' }}>Seznam produktů</a>
             </li>
             <li class="nav-item {{ route ==  'contact' ? 'active' }}">
                 <a class="nav-link" href="{{ path('contact') }}" {{ route ==  'contact' ? 'onclick="return false;"' }}>Kontakt</a>
             </li>
-            <li class="nav-item {{ route ==  'contact' ? 'active' }}">
-                <a class="nav-link" href="{{ path('contact') }}" {{ route ==  'contact' ? 'onclick="return false;"' }}>Košík</a>
+            <li class="nav-item {{ route starts with  'basket' ? 'active' }}">
+                <a class="nav-link" href="{{ path('basket_index') }}" {{ route ==  'basket' ? 'onclick="return false;"' }}>Košík</a>
             </li>
 
 

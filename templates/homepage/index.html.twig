@@ -63,7 +63,7 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <a id="{{ product.id}}" href="{{ path('ordering', {id: product.id} )}}" class="btn btn-success">Objednat</a>
+                                <a id="{{ product.id}}" href="{{ path('basket_add_to_cart', {id: product.id} )}}" class="btn btn-success">Objednat</a>
                             </td>
                         </table>
                         {% if product.stock <= 0 %}

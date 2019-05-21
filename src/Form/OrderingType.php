@@ -17,7 +17,6 @@ class OrderingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('count')
             ->add('email')
             ->add('telephone')
             ->add('name')

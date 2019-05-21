@@ -15,9 +15,9 @@
 
     <div class="row">
             <div class="list-group list-group-horizontal">
-                <a href="#" id="selector-all" onclick="$('div.card').show(); $('a.list-group-item.list-group-item-action').removeClass('active'); $('#selector-all').addClass('active');" class="list-group-item list-group-item-action active">Všechno</a>
+                <a href="{{ path('list') }}" id="selector-all" onclick="$('a.list-group-item.list-group-item-action').removeClass('active'); $('#selector-all').addClass('active');" class="list-group-item list-group-item-action active">Všechno</a>
                 {% for category in categories %}
-                <a href="#" id="category-selector-not-all-category-{{ category.id }}" class="list-group-item list-group-item-action" onclick="$('div.card').hide(); $('div.card#category-{{ category.id }}').show(); $('a.list-group-item.list-group-item-action.active').toggleClass('active'); $('#category-selector-not-all-category-{{ category.id }}').removeClass('active'); $('#category-selector-not-all-category-{{ category.id }}').addClass('active')">{{ category.description }}</a>
+                <a href="{{ path('list_id', {id: category.id}) }}" id="category-selector-not-all-category-{{ category.id }}" class="list-group-item list-group-item-action" onclick="">{{ category.description }}</a>
                 {% endfor %}
         </div>
         {% for product in products %}
@@ -54,7 +54,7 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        <a id="{{ product.id}}" href="{{ path('ordering', {id: product.id} )}}" class="btn btn-success">Objednat</a>
+                                        <a id="{{ product.id}}" href="{{ path('basket_add_to_cart', {id: product.id} )}}" class="btn btn-success">Přidat do košíku</a>
                                     </td>
                                 </table>
                                 {% if product.stock <= 0 %}
@@ -62,10 +62,6 @@
                                     $('a.btn.btn-success#'+{{ product.id }}).hide();
                                 </script>
                                 {% endif %}
-
-
-
-
                     </div>
                 </div>
             </div>

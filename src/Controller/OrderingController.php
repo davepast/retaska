@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ordering;
+use App\Entity\OrderProduct;
 use App\Entity\Product;
 use App\Form\OrderingType;
 use App\Repository\OrderingRepository;
@@ -10,6 +11,7 @@ use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -26,24 +28,50 @@ class OrderingController extends AbstractController
     }
 
     /**
-     * @Route("/admin/ordering", name="ordering_new", methods={"GET","POST"})
+     * @Route("/ordering", name="ordering_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SessionInterface $session): Response
     {
-        $ordering = new Ordering();
+        $ordering = new Ordering;
+
         $form = $this->createForm(OrderingType::class, $ordering);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $ordering->setProductPrice($product->getPrice());
-            $ordering->setProductName($product->getName());
+
+            $products = $session->get('basket');
+
+            foreach ($products as $product) {
+                $orderProduct = new OrderProduct;
+                $orderProduct->setProductId($product['id']);
+                $orderProduct->setName($product['name']);
+                $orderProduct->setPrice($product['price']);
+                $orderProduct->setAmount($product['count']);
+
+                $this->getDoctrine()->getManager()->persist($orderProduct);
+                $ordering->addProduct($orderProduct);
+
+                $orderedProducts = $ordering->getOrderedProducts();
+
+            }
+
+            $totalProductsPrice = 0
+                foreach ($orderedProducts as $orderedProduct){
+                    $totalProductsPrice += $orderedProduct['price'];
+
+                };
+                $ordering->setTotalPrice(
+                    $ordering->getDelivery()->getPrice() +
+                    $ordering->getPayment()->getPrice() +
+                    $totalProductsPrice
+                );
+
             $ordering->setStatus('new');
-            $product->setStock($product->getStock()-$ordering->getCount());
-            $ordering->setTotalPrice($ordering->getCount() * $ordering->getProductPrice() + $ordering->getDelivery()->getPrice() + $ordering->getPayment()->getPrice());
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($ordering);
-            $entityManager->flush();
+            //$product->setStock($product->getStock()-$ordering->getCount());
+            //$ordering->setTotalPrice(;
+
+            $this->getDoctrine()->getManager()->persist($ordering);
+            $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('thankyou');
         }
@@ -51,35 +79,7 @@ class OrderingController extends AbstractController
         return $this->render('ordering/new.html.twig', [
             'ordering' => $ordering,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/ordering/new/{id}", name="ordering", methods={"GET","POST"})
-     */
-    public function order(Request $request, Product $product): Response
-    {
-        $ordering = new Ordering();
-        $form = $this->createForm(OrderingType::class, $ordering);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $ordering->setProductPrice($product->getPrice());
-            $ordering->setProductName($product->getName());
-            $ordering->setStatus('new');
-            $product->setStock($product->getStock() - $ordering->getCount());
-            $ordering->setTotalPrice($ordering->getCount() * $ordering->getProductPrice() + $ordering->getDelivery()->getPrice() + $ordering->getPayment()->getPrice());
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($ordering);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('thankyou');
-        }
-
-        return $this->render('ordering/new.html.twig', [
-            'ordering' => $ordering,
-            'product' => $product,
-            'form' => $form->createView(),
+            'products' => $session->get('basket')
         ]);
     }
 
@@ -96,7 +96,7 @@ class OrderingController extends AbstractController
     /**
      * @Route("admin/ordering/{id}/edit", name="ordering_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Ordering $ordering, Product $product): Response
+    public function edit(Request $request, Ordering $ordering): Response
     {
         $form = $this->createForm(OrderingType::class, $ordering);
         $form->handleRequest($request);
@@ -111,7 +111,6 @@ class OrderingController extends AbstractController
 
         return $this->render('ordering/edit.html.twig', [
             'ordering' => $ordering,
-            'product' => $product,
             'form' => $form->createView(),
         ]);
     }
