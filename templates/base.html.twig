@@ -9,6 +9,9 @@
     </head>
     <body style="margin-bottom: 60px;">
     {% set route = app.request.attributes.get('_route') %}
+    {% if route == 'list_id' %}
+        {% set param = app.request.attributes.get('_route_params')['id']%}
+    {% endif %}
     {{ include('navbar.html.twig') }}
         <div class="container">
             {% block body %}{% endblock %}

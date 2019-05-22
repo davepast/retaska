@@ -46,7 +46,7 @@
                         <p class="card-text">Kategorie: {{ product.category.description|capitalize }}</p>
                         <table>
                             <td>
-                                <a href="{{ path('detail', {'id': product.id }) }}" class="btn btn-info">Detail</a>
+                                <a href="{{ path('detail', {'id': product.id, 'count': }) }}" class="btn btn-info">Detail</a>
                             </td>
                             <td>
                                 {% if product.stock <= 0 %}
@@ -55,7 +55,7 @@
                                         $('a.btn.btn-success#'+{{ product.id }}).hide();
                                     </script>
                                 {% else %}
-                                    <select class="form-control" id="sel1" style="width: 55px">
+                                    <select class="form-control" id="sel_{{ product.id }}" style="width: 55px">
                                         {% for i in range (0, product.stock) %}
                                             <option>{{ i }}</option>
                                         {% endfor %}
@@ -69,6 +69,7 @@
                         {% if product.stock <= 0 %}
                             <script>
                                 $('a.btn.btn-success#'+{{ product.id }}).hide();
+                                let a =
                             </script>
                         {% endif %}
 
