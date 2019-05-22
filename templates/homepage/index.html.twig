@@ -27,7 +27,7 @@
                     {% endif %}
                     <p class="card-text">Kategorie: {{ product.category.description|capitalize }}</p>
                     <a href="{{ path('detail', {'id': product.id }) }}" class="btn btn-info">Detail</a>
-                    <a href="{{ path('ordering', {id: product.id} )}}" class="btn btn-success">Objednat</a>
+                    <a href="{{ path('ordering_index')}}" class="btn btn-success">Objednat</a>
             </div>
         </div>
     </div> -->

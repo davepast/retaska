@@ -30,7 +30,7 @@ class OrderingController extends AbstractController
     /**
      * @Route("/ordering", name="ordering_new", methods={"GET","POST"})
      */
-    public function new(Request $request, SessionInterface $session): Response
+    public function new(Request $request, SessionInterface $session, Product $product, ProductRepository $productRepository): Response
     {
         $ordering = new Ordering;
 
@@ -39,36 +39,39 @@ class OrderingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $products = $session->get('basket');
+            $productsToBeOrdered = $session->get('basket');
 
-            foreach ($products as $product) {
+            $totalProductsPrice = 0;
+
+            foreach ($productsToBeOrdered as $productToBeOrdered) {
+
                 $orderProduct = new OrderProduct;
-                $orderProduct->setProductId($product['id']);
-                $orderProduct->setName($product['name']);
-                $orderProduct->setPrice($product['price']);
-                $orderProduct->setAmount($product['count']);
+                $orderProduct->setProductId($productToBeOrdered['id']);
+                $orderProduct->setName($productToBeOrdered['name']);
+                $orderProduct->setPrice($productToBeOrdered['price']);
+                $orderProduct->setAmount($productToBeOrdered['count']);
+
+                $product = $productRepository->findBy(['id' => $productsToBeOrdered['id']]);
+                $originalProduct = $product;
+
+                var_dump($originalProduct);
+                die;
+                $originalProduct->setStock($originalProduct->getStock()-$product['count']);
+                $this->getDoctrine()->getManager()->persist($originalProduct);
 
                 $this->getDoctrine()->getManager()->persist($orderProduct);
                 $ordering->addProduct($orderProduct);
-
-                $orderedProducts = $ordering->getOrderedProducts();
-
+                $this->getDoctrine()->getManager()->flush();
             }
 
-            $totalProductsPrice = 0
-                foreach ($orderedProducts as $orderedProduct){
-                    $totalProductsPrice += $orderedProduct['price'];
-
-                };
-                $ordering->setTotalPrice(
-                    $ordering->getDelivery()->getPrice() +
-                    $ordering->getPayment()->getPrice() +
-                    $totalProductsPrice
-                );
+            $ordering->setTotalPrice(
+                $ordering->getDelivery()->getPrice() +
+                $ordering->getPayment()->getPrice() +
+                $totalProductsPrice
+            );
 
             $ordering->setStatus('new');
-            //$product->setStock($product->getStock()-$ordering->getCount());
-            //$ordering->setTotalPrice(;
+
 
             $this->getDoctrine()->getManager()->persist($ordering);
             $this->getDoctrine()->getManager()->flush();

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}reTaška Košík{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+    <div class="container-fluid">
+        <div class="example-wrapper">
+            <h2>reTaška Košík</h2>
+        </div>
+        <div class="row">
+            <table>
+                <thead>
+                <tr>
+                    <td>Název produktu</td>
+                    <td>Počet kusů v košíku</td>
+                    <td>Cena za kus</td>
+                    <td>Cena</td>
+                    <td>Změna kusů</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in basket %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.count }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{% set sum = item.price * item.count %}{{ sum }}</td>
+                    <td><a href="{{ path('basket_increase_count', {id: item.id}) }}" class="btn btn-success">+</a> <a href="{{ path('basket_decrease_count', {id: item.id}) }}" class="btn btn-danger">-</a> <a href="{{ path('basket_remove_from_cart', {id: item.id}) }}" class="btn btn-info">Odstranit z košíku</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <a href="{{ path('ordering_new') }}" class="btn btn-success">Pokračovat k výběru dopravy a platby</a> <a href="{{ path('basket_dump') }}" class="btn btn-info">Vymazat košík</a>
+    </div>
+{% endblock %}

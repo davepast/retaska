@@ -1,0 +1,35 @@
+orderedProducts:
+
+array(2) {
+    [0]=> object(App\Entity\OrderProduct)#1567 (5) {
+        ["id":"App\Entity\OrderProduct":private]=> NULL
+        ["productId":"App\Entity\OrderProduct":private]=> int(2)
+        ["name":"App\Entity\OrderProduct":private]=> string(15) "papírovka mini"
+        ["price":"App\Entity\OrderProduct":private]=> float(59)
+        ["amount":"App\Entity\OrderProduct":private]=> int(1)
+        }
+    [1]=> object(App\Entity\OrderProduct)#1675 (5) {
+        ["id":"App\Entity\OrderProduct":private]=> NULL
+        ["productId":"App\Entity\OrderProduct":private]=> int(3)
+        ["name":"App\Entity\OrderProduct":private]=> string(9) "látkovka"
+        ["price":"App\Entity\OrderProduct":private]=> float(79)
+        ["amount":"App\Entity\OrderProduct":private]=> int(1)
+    }
+}
+
+products:
+
+array(2) {
+    [2]=> array(4) {
+        ["id"]=> int(2)
+        ["name"]=> string(15) "papírovka mini"
+        ["price"]=> float(59)
+        ["count"]=> int(1)
+        }
+    [3]=> array(4) {
+        ["id"]=> int(3)
+        ["name"]=> string(9) "látkovka"
+        ["price"]=> float(79)
+        ["count"]=> int(1)
+    }
+}
