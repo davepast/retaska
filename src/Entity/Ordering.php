@@ -47,7 +47,7 @@ class Ordering
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Range(
-     *     min=10000,
+     *     min=00000,
      *     max=99999,
      *     minMessage="Zadejte platné PSČ",
      *     maxMessage="Zadejte platné PSČ"

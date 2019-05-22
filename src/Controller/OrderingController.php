@@ -30,7 +30,7 @@ class OrderingController extends AbstractController
     /**
      * @Route("/ordering", name="ordering_new", methods={"GET","POST"})
      */
-    public function new(Request $request, SessionInterface $session, Product $product, ProductRepository $productRepository): Response
+    public function new(Request $request, SessionInterface $session, Product $product): Response
     {
         $ordering = new Ordering;
 
@@ -51,17 +51,13 @@ class OrderingController extends AbstractController
                 $orderProduct->setPrice($productToBeOrdered['price']);
                 $orderProduct->setAmount($productToBeOrdered['count']);
 
-                $product = $productRepository->findBy(['id' => $productsToBeOrdered['id']]);
-                $originalProduct = $product;
-
-                var_dump($originalProduct);
-                die;
-                $originalProduct->setStock($originalProduct->getStock()-$product['count']);
-                $this->getDoctrine()->getManager()->persist($originalProduct);
-
                 $this->getDoctrine()->getManager()->persist($orderProduct);
                 $ordering->addProduct($orderProduct);
                 $this->getDoctrine()->getManager()->flush();
+
+
+                var_dump($product);
+                die;
             }
 
             $ordering->setTotalPrice(
