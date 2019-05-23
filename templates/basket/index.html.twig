@@ -12,7 +12,7 @@
             <h2>reTaška Košík</h2>
         </div>
         <div class="row">
-            <table>
+            <table class="table-bordered table table-fluid">
                 <thead>
                 <tr>
                     <td>Název produktu</td>
@@ -36,6 +36,8 @@
             </table>
         </div>
         <br>
-        <a href="{{ path('ordering_new') }}" class="btn btn-success">Pokračovat k výběru dopravy a platby</a> <a href="{{ path('basket_dump') }}" class="btn btn-info">Vymazat košík</a>
+        <a href="{{ path('list') }}" class="btn btn-info">Pokračovat v nákupu</a> <a href="{{ path('basket_dump') }}" class="btn btn-info">Vymazat košík</a>
+        <a href="{{ path('ordering_new') }}" class="btn btn-success">Pokračovat k výběru dopravy a platby</a>
+
     </div>
 {% endblock %}
