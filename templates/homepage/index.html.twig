@@ -43,10 +43,10 @@
                         {% else %}
                             <p class="card-text">{{ product.description|capitalize }}</p>
                         {% endif %}
-                        <p class="card-text">Kategorie: {{ product.category.description|capitalize }}</p>
+                        <p class="card-text">Kategorie: <a href="{{ path('list_id', {'id': product.category.id } ) }}">{{ product.category.description|capitalize }}</a></p>
                         <table>
                             <td>
-                                <a href="{{ path('detail', {'id': product.id, 'count': }) }}" class="btn btn-info">Detail</a>
+                                <a href="{{ path('detail', {'id': product.id}) }}" class="btn btn-info">Detail</a>
                             </td>
                             <td>
                                 {% if product.stock <= 0 %}
@@ -63,7 +63,9 @@
                                 {% endif %}
                             </td>
                             <td>
+                                {% if product.stock > 0 %}
                                 <a id="{{ product.id}}" href="{{ path('basket_add_to_cart', {id: product.id} )}}" class="btn btn-success">Objednat</a>
+                                {% endif %}
                             </td>
                         </table>
                         {% if product.stock <= 0 %}

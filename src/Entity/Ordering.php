@@ -26,6 +26,11 @@ class Ordering
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Range(
+     *     min="100000000",
+     *     max="999999999",
+     *     minMessage="Zadejte platné telefonní číslo")
+     *     maxMessage="Zadejte platné telefonní číslo")
      */
     private $telephone;
 
@@ -47,7 +52,7 @@ class Ordering
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Range(
-     *     min=00000,
+     *     min=0,
      *     max=99999,
      *     minMessage="Zadejte platné PSČ",
      *     maxMessage="Zadejte platné PSČ"
@@ -94,23 +99,6 @@ class Ordering
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCount(): ?int
-    {
-        return $this->count;
-    }
-
-    public function setCount(int $count): self
-    {
-        $this->count = $count;
-
-        return $this;
-    }
-
-    public function getProduct(): ?Product
-    {
-        return $this->product;
     }
 
     public function setProduct(?Product $product): self
@@ -252,23 +240,6 @@ class Ordering
         return $this;
     }
 
-    public function getProductName(): ?string
-    {
-        return $this->productName;
-    }
-
-    public function setProductName(string $productName): self
-    {
-        $this->productName = $productName;
-
-        return $this;
-    }
-
-    public function getProductPrice(): ?int
-    {
-        return $this->productPrice;
-    }
-
     public function setTotalPrice(int $totalPrice): self
     {
         $this->totalPrice = $totalPrice;
@@ -279,13 +250,6 @@ class Ordering
     public function getTotalPrice(): ?int
     {
         return $this->totalPrice;
-    }
-
-    public function setProductPrice(int $productPrice): self
-    {
-        $this->productPrice = $productPrice;
-
-        return $this;
     }
 
     public function getOrderedProducts(): ?array

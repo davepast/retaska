@@ -24,6 +24,16 @@ class ProductRepository extends ServiceEntityRepository
         return $this->findBy([], ['price' => 'DESC'], 3);
     }
 
+    public function listAccToAlphabet()
+    {
+        return $this->findBy([], ['name' => 'ASC']);
+    }
+
+    public function listAccToAlphabetByCategory($categoryToDisplay)
+    {
+        return $this->findBy(['category' => $categoryToDisplay], ['name' => 'ASC']);
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

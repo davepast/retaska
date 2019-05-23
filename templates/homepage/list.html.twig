@@ -34,7 +34,7 @@
                         {% else %}
                         <p class="card-text">{{ product.description|capitalize }}</p>
                         {% endif %}
-                                <p class="card-text">Kategorie: {{ product.category.description|capitalize }}</p>
+                                <p class="card-text">Kategorie: <a href="{{ path('list_id', {'id': product.category.id } ) }}">{{ product.category.description|capitalize }}</a></p>
                                 <table>
                                     <td>
                                         <a href="{{ path('detail', {'id': product.id }) }}" class="btn btn-info">Detail</a>

@@ -16,7 +16,7 @@
             <h5 class="card-title">{{ product.name|capitalize }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{% if product.stock < 1 %} Není skladem {% else %} {{ product.stock }} ks skladem {% endif %}</h6>
             <p class="card-text">{{ product.description|capitalize }}</p>
-            <p class="card-text">Kategorie: {{ product.category.description|capitalize }}</p>
+            <p class="card-text">Kategorie: <a href="{{ path('list_id', {'id': product.category.id } ) }}">{{ product.category.description|capitalize }}</a></p>
             <table>
                 <tbody>
                 <tr>

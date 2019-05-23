@@ -62,7 +62,7 @@ class HomepageController extends AbstractController
             'homepage'=> [
                 'heading' => 'Seznam produktů'
             ],
-            'products' => $productRepository->findAll(),
+            'products' => $productRepository->listAccToAlphabet(),
             'categories' => $categoryRepository->findAll()
 
         ]);
@@ -77,7 +77,8 @@ class HomepageController extends AbstractController
             'homepage'=> [
                 'heading' => 'Seznam produktů'
             ],
-            'products' => $productRepository->findBy(['category' => $id]),
+            'products' => $productRepository->listAccToAlphabetByCategory($id),
+                //$productRepository->findBy(['category' => $id]),
             'categories' => $categoryRepository->findAll()
         ]);
     }

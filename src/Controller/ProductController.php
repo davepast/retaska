@@ -71,6 +71,7 @@ class ProductController extends AbstractController
 
             return $this->redirectToRoute('product_index', [
                 'id' => $product->getId(),
+
             ]);
         }
 
