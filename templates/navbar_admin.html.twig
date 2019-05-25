@@ -24,22 +24,37 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item {{ route ==  'admin_homepage' ? 'active' }}">
+                <li id="admin" class="nav-item {{ route ==  'admin_homepage' ? 'active' }}">
                     <a class="nav-link" href="{{ path('admin_homepage') }}">Administrace</a>
                 </li>
-                <li class="nav-item {{ route starts with  'product' ? 'active' }}">
+                <li id="prod" class="nav-item {{ route starts with  'product' ? 'active' }}">
                     <a class="nav-link" href="{{ path('product_index') }}" {{ route starts with  'product' ? 'onclick="return false;"' }}>Správa produktů</a>
                 </li>
-                <li class="nav-item {{ route starts with  'category' ? 'active' }}">
+                <li id="cat" class="nav-item {{ route starts with  'category' ? 'active' }}">
                     <a class="nav-link" href="{{ path('category_index') }}" {{ route starts with  'category' ? 'onclick="return false;"' }}>Správa kategorií</a>
                 </li>
-                <li class="nav-item {{ route starts with  'ordering' ? 'active' }}">
+                <li id="order" class="nav-item {{ route starts with  'ordering' ? 'active' }}">
                     <a class="nav-link" href="{{ path('ordering_index') }}" {{ route starts with  'ordering' ? 'onclick="return false;"' }}>Správa objednávek</a>
                 </li>
+                <li id="user" class="nav-item {{ route starts with  'user' ? 'active' }}">
+                    <a class="nav-link" href="{{ path('user_index') }}" {{ route starts with  'user' ? 'onclick="return false;"' }}>Správa uživatelů</a>
+                </li>
+                <li id="login" class="nav-item">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
+                        <a class="nav-link" href="{{ path('app_logout') }}">Odhlásit {{ app.user.username }}</a>
+                        {% else %}
+                            <a href="#" class="nav-link">Nepřihlášený uživatel</a>
+                    {% endif %}
+                </li>
             </ul>
-            <input class="form-control mr-sm-2" type="search" placeholder="Vyhledávání" aria-label="Hledat">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Hledat</button>
         </form>
     </div>
 </nav>
+<script>
+    function hidelis() {
+        $('li#admin').hide;
+    };
+
+    $(document).ready(hidelis());
+</script>

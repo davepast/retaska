@@ -3,63 +3,53 @@
 {% block title %}Ordering{% endblock %}
 
 {% block body %}
-    <h1>Ordering</h1>
+    <h1>Detail objednávky {{ ordering.id }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ ordering.id }}</td>
+                <th>Objednané výrobky</th>
+                <td>
+                    {% for orderedItem in ordering.orderedProducts %}
+                            {{ orderedItem.name }} - {{ orderedItem.amount }} ks <br>
+                    {% endfor %}
+                </td>
             </tr>
             <tr>
-                <th>Product Name</th>
-                <td>{{ ordering.productName }}</td>
+                <th>Celková cena</th>
+                <td>{{ ordering.totalPrice }} Kč</td>
             </tr>
             <tr>
-                <th>Count</th>
-                <td>{{ ordering.count }}</td>
+                <th>Doručovací údaje</th>
+                <td>
+                    {{ ordering.name }} <br>
+                    {{ ordering.addressStreet }}<br>
+                    {{ ordering.addressZip }} {{ ordering.addressCity }}<br>
+                    {{ ordering.addressCountry.description }}
+                </td>
             </tr>
             <tr>
-                <th>Product Price</th>
-                <td>{{ ordering.productPrice }}</td>
+                <th>Kontaktní údaje</th>
+                <td>
+                    {{ ordering.email }}<br>
+                    {{ ordering.telephone }}
+                </td>
             </tr>
             <tr>
-                <th>Total Price</th>
-                <td>{{ ordering.totalPrice }}</td>
+                <th>Doprava a platba</th>
+                <td>
+                    {{ ordering.delivery.description }}<br>
+                    {{ ordering.payment.description }}
+                </td>
             </tr>
             <tr>
-                <th>Email</th>
-                <td>{{ ordering.email }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ ordering.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ ordering.name }}</td>
-            </tr>
-            <tr>
-                <th>AddressStreet</th>
-                <td>{{ ordering.addressStreet }}</td>
-            </tr>
-            <tr>
-                <th>AddressCity</th>
-                <td>{{ ordering.addressCity }}</td>
-            </tr>
-            <tr>
-                <th>AddressZip</th>
-                <td>{{ ordering.addressZip }}</td>
-            </tr>
-            <tr>
-                <th>Notes</th>
+                <th>Poznámka</th>
                 <td>{{ ordering.notes }}</td>
             </tr>
             <tr>
                 <th>Status</th>
                 <td>{{ ordering.status }}</td>
             </tr>
-
         </tbody>
     </table>
 

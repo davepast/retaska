@@ -7,47 +7,75 @@
     <div class="row">
         <div class="col md-6">
             {{ form_start(form) }}
-                {{ form_widget(form) }}
-            <button class="btn btn-success">{{ button_label|default('Odeslat objednávku') }}</button>
-            {{ form_end(form) }}
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email) }}
+            {{ form_label(form.telephone) }}
+            {{ form_widget(form.telephone) }}
+            {{ form_label(form.addressStreet) }}
+            {{ form_widget(form.addressStreet) }}
+            {{ form_label(form.addressCity) }}
+            {{ form_widget(form.addressCity) }}
+            {{ form_label(form.addressZip) }}
+            {{ form_widget(form.addressZip) }}
+            {{ form_label(form.addressCountry) }}
+            {{ form_widget(form.addressCountry) }}
+            {{ form_label(form.delivery) }}
+            {{ form_widget(form.delivery) }}
+            {{ form_label(form.payment) }}
+            {{ form_widget(form.payment) }}
+            {{ form_label(form.notes) }}
+            {{ form_widget(form.notes) }}
+            {% do form.status.setRendered() %}
+
         </div>
         <div class="col md-6">
-    <div class="example-wrapper">
-        <div class="card" style="height: 16rem;">
-            <div class="card-body">
-                <table>
-                    <tbody>
-                    {% for product in products %}
-                    <tr>
-                        <td>{{ product.name|capitalize }}</td>
-                        <td><span id="total_count">{{ product.count }} ks</span></td>
-                        <td><span class="total_product">{{ product.count * product.price }} Kč</span></td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        <td>Doprava </td>
-                        <td><span id="total_delivery_name"></span></td>
-                        <td><span id="total_delivery"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Platba </td>
-                        <td><span id="total_payment_name"></span></td>
-                        <td><span id="total_payment"></span></td>
-                    </tr>
-                    <tr>
-                        <td><b>Suma za objednávku</b></td>
-                        <td></td>
-                        <td><b><span id="total_pricing"></span></b></td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="example-wrapper">
+                <div class="card" style="height: auto;">
+                    <div class="card-body">
+                        <table class="table-bordered table table-fluid">
+                            <thead>
+                            <tr>
+                                <td colspan="3">
+                                    <h4>
+                                        Rozklad ceny
+                                    </h4>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td>{{ product.name|capitalize }}</td>
+                                <td><span id="total_count">{{ product.count }} ks</span></td>
+                                <td><span class="total_product">{{ product.count * product.price }} Kč</span></td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td>Doprava </td>
+                                <td><span id="total_delivery_name"></span></td>
+                                <td><span id="total_delivery"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Platba </td>
+                                <td><span id="total_payment_name"></span></td>
+                                <td><span id="total_payment"></span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><b>Suma za objednávku</b></td>
 
+                                <td><b><span id="total_pricing"></span></b></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-success">{{ button_label|default('Odeslat objednávku') }}</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
-    <a href="{{ path('ordering_index') }}">back to list</a>
 {% endblock %}
 
 {% block javascripts %}

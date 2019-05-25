@@ -115,7 +115,7 @@ class HomepageController extends AbstractController
      */
     public function search(EntityManagerInterface $entityManager, Request $request)
     {
-        $searchForm = $this->createFormBuilder()
+       /* $searchForm = $this->createFormBuilder()
             ->add('search', TextType::class, [
                 'data' => 'Vyhledávání'
             ])
@@ -152,6 +152,22 @@ class HomepageController extends AbstractController
             'searchForm' => $searchForm->createView(),
             'products' => NULL,
             'categories' => NULL
+        ]);
+
+       */
+
+        $search = $request->query->get('search');
+        $products = $entityManager
+            ->createQuery("SELECT p FROM " . Product::class . " p WHERE p.name LIKE :search")
+            ->setParameter('search', "%$search%")
+            ->getResult();
+        // Vygeneruje SQL: SELECT * FROM product p WHERE p.name LIKE '%taska%'
+        return $this->render('homepage/search.html.twig', [
+            'products' => $products,
+            'searchedFor' => $search,
+            'homepage'=> [
+                'heading' => 'Vyhledávání produktů'
+            ]
         ]);
 
 

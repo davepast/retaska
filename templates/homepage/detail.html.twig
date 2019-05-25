@@ -11,45 +11,7 @@
 <div class="example-wrapper">
     <h1>{{ homepage.heading }} {{ product.name|capitalize }}</h1>
 
-    <div class="card" style="width: 45rem;">
-        <div class="card-body">
-            <h5 class="card-title">{{ product.name|capitalize }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{% if product.stock < 1 %} Není skladem {% else %} {{ product.stock }} ks skladem {% endif %}</h6>
-            <p class="card-text">{{ product.description|capitalize }}</p>
-            <p class="card-text">Kategorie: <a href="{{ path('list_id', {'id': product.category.id } ) }}">{{ product.category.description|capitalize }}</a></p>
-            <table>
-                <tbody>
-                <tr>
-                    <td>
-                        <a href="{{ path('list')}}" class="btn btn-info">Zpět na seznam produktů</a>
-                    </td>
-                    <td>
-                        {% if product.stock <= 0 %}
-                            Není skladem
-                            <script>
-                                $('a.btn.btn-success#'+{{ product.id }}).hide();
-                            </script>
-                        {% else %}
-                            <select class="form-control" id="sel1" style="width: 55px">
-                                {% for i in range (0, product.stock) %}
-                                    <option>{{ i }}</option>
-                                {% endfor %}
-                            </select>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{{ path('basket_add_to_cart', {id: product.id} )}}" class="btn btn-success">Přidat do košíku</a>
-                    </td>
-
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    {% include 'product_card.html.twig' %}
 </div>
-    {% if product.stock <= 0 %}
-        <script>
-            $('a.btn.btn-success').hide();
-        </script>
-    {% endif %}
+
 {% endblock %}

@@ -57,7 +57,7 @@ class OrderingController extends AbstractController
 
                 $product = $productRepository->findOneBy(['id' => $productToBeOrdered['id']]);
                 $product->setStock($product->getStock()-$orderProduct->getAmount());
-                
+                $totalProductsPrice += $orderProduct->getAmount() * $orderProduct->getPrice();
             }
 
             $ordering->setTotalPrice(
@@ -71,7 +71,8 @@ class OrderingController extends AbstractController
 
             $this->getDoctrine()->getManager()->persist($ordering);
             $this->getDoctrine()->getManager()->flush();
-
+            
+            $session->set('basket', []);
             return $this->redirectToRoute('thankyou');
         }
 

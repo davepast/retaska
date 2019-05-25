@@ -7,83 +7,19 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
+
 <div class="container-fluid">
-<div class="example-wrapper">
-    <h1>{{ homepage.heading }}</h1>
-    <img src="/retaska/_reusable_bag.png" alt="reTaška" />
-</div>
-<h2>Top produkty</h2>
-<div class="row">
-    {% for product in topProducts %}
-  <!--  <div class="col-sm-4">
-        <div class="card" style="width: 18rem; height: 20rem;">
-            <div class="card-body">
-                <h5 class="card-title">{{ product.name|capitalize }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ product.stock }} ks skladem</h6>
-                {% if product.description|length > 65 %}
-                <a class="card-text">{{ product.description|slice(0, 65) |capitalize }} <a href="{{ path('detail', {'id': product.id}) }}">...více</a></p>
-                    {% else %}
-                        <p class="card-text">{{ product.description|capitalize }}</p>
-                    {% endif %}
-                    <p class="card-text">Kategorie: {{ product.category.description|capitalize }}</p>
-                    <a href="{{ path('detail', {'id': product.id }) }}" class="btn btn-info">Detail</a>
-                    <a href="{{ path('ordering_index')}}" class="btn btn-success">Objednat</a>
-            </div>
-        </div>
-    </div> -->
-
-
-        <div class="col-sm-4">
-            <div class="card" style="width: 18rem; " id="category-{{ product.category.id }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.name|capitalize }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{% if product.stock < 1 %} Není skladem {% else %} {{ product.stock }} ks skladem {% endif %}</h6>
-                    {% if product.description|length > 65 %}
-                    <a class="card-text">{{ product.description|slice(0, 65) |capitalize }} <a href="{{ path('detail', {'id': product.id}) }}">...více</a></p>
-                        {% else %}
-                            <p class="card-text">{{ product.description|capitalize }}</p>
-                        {% endif %}
-                        <p class="card-text">Kategorie: <a href="{{ path('list_id', {'id': product.category.id } ) }}">{{ product.category.description|capitalize }}</a></p>
-                        <table>
-                            <td>
-                                <a href="{{ path('detail', {'id': product.id}) }}" class="btn btn-info">Detail</a>
-                            </td>
-                            <td>
-                                {% if product.stock <= 0 %}
-                                    Není skladem
-                                    <script>
-                                        $('a.btn.btn-success#'+{{ product.id }}).hide();
-                                    </script>
-                                {% else %}
-                                    <select class="form-control" id="sel_{{ product.id }}" style="width: 55px">
-                                        {% for i in range (0, product.stock) %}
-                                            <option>{{ i }}</option>
-                                        {% endfor %}
-                                    </select>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if product.stock > 0 %}
-                                <a id="{{ product.id}}" href="{{ path('basket_add_to_cart', {id: product.id} )}}" class="btn btn-success">Přidat do košíku</a>
-                                {% endif %}
-                            </td>
-                        </table>
-                        {% if product.stock <= 0 %}
-                            <script>
-                                $('a.btn.btn-success#'+{{ product.id }}).hide();
-                                let a =
-                            </script>
-                        {% endif %}
-
-
-
-
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-</div>
-
-        </div>
+    <div class="example-wrapper">
+        <h1>{{ homepage.heading }}</h1>
+        <img src="/retaska/_reusable_bag.png" alt="reTaška" />
     </div>
+    <h2>Nejžádanější produkty</h2>
+    <div class="row">
+        {% for product in topProducts %}
+            <div class="col-sm-4">
+                {{ include('product_card.html.twig') }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

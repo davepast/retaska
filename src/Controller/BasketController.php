@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -23,16 +24,14 @@ class BasketController extends AbstractController
     }
 
     /**
-     * @Route("/basket/add_to_cart/{id}", name="basket_add_to_cart_no_count")
-     * @Route("/basket/add_to_cart/{id}/{count}", name="basket_add_to_cart")
+     * @Route("/basket/add_to_cart/{id}", name="basket_add_to_cart")
      */
-    public function basketAddToCart(Product $product, SessionInterface $session, Request $request, $count = null)
+    public function basketAddToCart(Product $product, SessionInterface $session, Request $request)
     {
-        $basket = $session->get('basket', []);
 
-        if ($count == NULL) {
-            $count = 1;
-        };
+        $count = $request->query->get('count');
+
+        $basket = $session->get('basket', []);
 
         $basket[$product->getId()] = [
             'id' => $product->getId(),

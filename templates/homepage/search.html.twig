@@ -8,7 +8,7 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
     <div class="example-wrapper">
-        <h1>{{ homepage.heading }}</h1>
+        <h1>Vyhledání produktů podle klíče "{{ searchedFor }}"</h1>
     </div>
     <div class="container-fluid">
         <div class="col-md-12">
@@ -19,45 +19,7 @@
                 </div><br><div class="row">
             {% endif %}
             <div class="col-sm-4">
-                <div class="card" style="width: 18rem; " id="category-{{ product.category.id }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.name|capitalize }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{% if product.stock < 1 %} Není skladem {% else %} {{ product.stock }} ks skladem {% endif %}</h6>
-                        {% if product.description|length > 65 %}
-                            <a class="card-text">{{ product.description|slice(0, 65) |capitalize }} <a href="{{ path('detail', {'id': product.id}) }}">...více</a></p>
-                        {% else %}
-                        <p class="card-text">{{ product.description|capitalize }}</p>
-                        {% endif %}
-                                <p class="card-text">Kategorie: {{ product.category.description|capitalize }}</p>
-                                <table>
-                                    <td>
-                                        <a href="{{ path('detail', {'id': product.id }) }}" class="btn btn-info">Detail</a>
-                                    </td>
-                                    <td>
-                                        {% if product.stock <= 0 %}
-                                        Není skladem
-                                            <script>
-                                                $('a.btn.btn-success#'+{{ product.id }}).hide();
-                                            </script>
-                                        {% else %}
-                                            <select class="form-control" id="sel1" style="width: 55px">
-                                                {% for i in range (0, product.stock) %}
-                                                    <option>{{ i }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <a id="{{ product.id}}" href="{{ path('basket_add_to_cart', {id: product.id} )}}" class="btn btn-success">Přidat do košíku</a>
-                                    </td>
-                                </table>
-                                {% if product.stock <= 0 %}
-                                <script>
-                                    $('a.btn.btn-success#'+{{ product.id }}).hide();
-                                </script>
-                                {% endif %}
-                    </div>
-                </div>
+                {{ include('product_card.html.twig') }}
             </div>
     {% endfor %}
         </div>
