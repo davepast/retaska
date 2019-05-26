@@ -18,8 +18,15 @@ class BasketController extends AbstractController
     {
         $basket = $session->get('basket', []);
 
+        if ($basket == []){
+            $h1 = 'Košík je prázdný!';
+        } else {
+            $h1 = '';
+        }
+
         return $this->render('basket/index.html.twig', [
-            'basket' => $basket
+            'basket' => $basket,
+            'h1' => $h1
         ]);
     }
 
@@ -61,7 +68,13 @@ class BasketController extends AbstractController
     public function basketDecrease(SessionInterface $session, Product $product)
     {
         $basket = $session->get('basket', []);
-        $basket[$product->getId()]['count']--;
+
+        if ($basket[$product->getId()]['count'] === 1) {
+            unset($basket[$product->getId()]);
+        } else {
+            $basket[$product->getId()]['count']--;
+        }
+
         $session->set('basket', $basket);
         return $this->redirectToRoute('basket_index');
     }
@@ -85,6 +98,8 @@ class BasketController extends AbstractController
     {
         $basket = [];
         $session->set('basket', $basket);
-        return $this->redirectToRoute('basket_index');
+        return $this->redirectToRoute('basket_index', [
+            'h1' => 'Některý z výrobků již není dostupný!'
+        ]);
     }
 }

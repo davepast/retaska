@@ -34,6 +34,16 @@ class ProductRepository extends ServiceEntityRepository
         return $this->findBy(['category' => $categoryToDisplay], ['name' => 'ASC']);
     }
 
+    public function findForFinalStockChange(array $productsToOrder)
+    {
+        foreach ($productsToOrder as $productToOrderKey => $productToOrderValue)
+        {
+            $productToBeChecked = $this->findBy(['id' => $productToOrderKey]);
+
+        }
+
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

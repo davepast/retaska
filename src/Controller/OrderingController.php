@@ -51,13 +51,30 @@ class OrderingController extends AbstractController
                 $orderProduct->setPrice($productToBeOrdered['price']);
                 $orderProduct->setAmount($productToBeOrdered['count']);
 
-                $this->getDoctrine()->getManager()->persist($orderProduct);
-                $ordering->addProduct($orderProduct);
-                $this->getDoctrine()->getManager()->flush();
+                $productToBeChecked = $productRepository->findOneBy(['id' => $orderProduct->getProductId()]);
 
-                $product = $productRepository->findOneBy(['id' => $productToBeOrdered['id']]);
-                $product->setStock($product->getStock()-$orderProduct->getAmount());
-                $totalProductsPrice += $orderProduct->getAmount() * $orderProduct->getPrice();
+                $stockToBeChecked = $productToBeChecked->getStock();
+
+                $amountToBeOrdered = $orderProduct->getAmount();
+
+
+                if ($amountToBeOrdered > $stockToBeChecked) {
+                    $basket = $session->get('basket', []);
+                    return $this->render('basket/index.html.twig', [
+                        'basket' => $basket,
+                        'h1' => 'Některý z výrobků již není dostupný! Zkontrolujte prosím nabídku v seznamu produktů.'
+                    ]);
+
+                } else {
+
+                    $this->getDoctrine()->getManager()->persist($orderProduct);
+                    $ordering->addProduct($orderProduct);
+                    $this->getDoctrine()->getManager()->flush();
+
+                    $product = $productRepository->findOneBy(['id' => $productToBeOrdered['id']]);
+                    $product->setStock($product->getStock()-$orderProduct->getAmount());
+                    $totalProductsPrice += $orderProduct->getAmount() * $orderProduct->getPrice();
+                }
             }
 
             $ordering->setTotalPrice(
@@ -71,7 +88,7 @@ class OrderingController extends AbstractController
 
             $this->getDoctrine()->getManager()->persist($ordering);
             $this->getDoctrine()->getManager()->flush();
-            
+
             $session->set('basket', []);
             return $this->redirectToRoute('thankyou');
         }
