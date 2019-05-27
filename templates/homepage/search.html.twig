@@ -8,22 +8,26 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
     <div class="example-wrapper">
-        <h1>Vyhledání produktů podle klíče "{{ searchedFor }}"</h1>
-    </div>
-    <div class="container-fluid">
-        <div class="col-md-12">
-
-    <div class="row">
-        {% for product in products %}
-            {% if loop.index0 % 3 == 0 %}
-                </div><br><div class="row">
-            {% endif %}
-            <div class="col-sm-4">
-                {{ include('product_card.html.twig') }}
+        <h1>{{ searchedFor == "" ? "Nebyl zadán výraz pro vyhledávání, zde je seznam všech produktů:" : 'Vyhledání produktů klíčovým slovem "' ~ searchedFor|format ~ '": '}}</h1>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="card-group">
+                    {% for product in products %}
+                    {% include 'product_card.html.twig' %}
+                    {% if loop.index % 3 == 0 %}
+                </div>
+                <br>
+                <div class="card-group">
+                    {% endif %}
+                    {% endfor %}
+                </div>
             </div>
-    {% endfor %}
         </div>
+
+
     </div>
-    </div>
-    </div>
+
 {% endblock %}
+
+

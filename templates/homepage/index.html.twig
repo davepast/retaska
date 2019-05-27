@@ -7,19 +7,28 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
+<div class="example-wrapper">
+    <h1>{{ homepage.heading }}</h1>
 
-<div class="container-fluid">
-    <div class="example-wrapper">
-        <h1>{{ homepage.heading }}</h1>
-        <img src="/retaska/_reusable_bag.png" alt="reTaška" />
-    </div>
-    <h2>Nejžádanější produkty</h2>
+        <blockquote class="blockquote text-center">
+            <p class="mb-0">...reTaška mění nakupování a chrání oceány...</p>
+            <footer class="blockquote-footer"><cite title="Source Title">New York Times 26.11.2018</cite></footer>
+        </blockquote>
+
     <div class="row">
-        {% for product in topProducts %}
-            <div class="col-sm-4">
-                {{ include('product_card.html.twig') }}
-            </div>
-        {% endfor %}
+
+        <img src="/retaska/_reusable_bag3.png" alt="reTaška" class="rounded mx-auto d-block">
     </div>
 </div>
+    <div class="example-wrapper">
+    <div class="row">
+        <h2>Nejžádanější produkty</h2>
+        <div class="card-group">
+        {% for product in topProducts %}
+        {{ include('product_card.html.twig') }}
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
 {% endblock %}

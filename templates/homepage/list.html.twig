@@ -9,26 +9,43 @@
 </style>
 <div class="example-wrapper">
     <h1>{{ homepage.heading }}</h1>
-</div>
-<div class="container-fluid">
-    <div class="col-md-12">
+
+    <div class="container">
         <div class="row">
-            <div class="list-group list-group-horizontal">
+            <nav class="navbar navbar-expand-lg navbar-light">
+
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+                    <a href="{{ path('list') }}" id="selector-all" class="list-group-item list-group-item-action {{ route == 'list' ? 'active'}}">všechny</a>
+                    {% for category in categories %}
+                        <li class="nav-item">
+                        <a href="{{ path('list_id', {id: category.id}) }}" id="category-selector-not-all-category-{{ category.id }}" class="list-group-item list-group-item-action {{ route == 'list_id' ? param == category.id ? 'active' }}" onclick="">{{ category.description }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            <!--<div class="list-group list-group-horizontal">
                 <a href="{{ path('list') }}" id="selector-all" class="list-group-item list-group-item-action {{ route == 'list' ? 'active'}}">Všechno</a>
                 {% for category in categories %}
                 <a href="{{ path('list_id', {id: category.id}) }}" id="category-selector-not-all-category-{{ category.id }}" class="list-group-item list-group-item-action {{ route == 'list_id' ? param == category.id ? 'active' }}" onclick="">{{ category.description }}</a>
                 {% endfor %}
-            </div>
+            </div>-->
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="card-group">
             {% for product in products %}
-            {% if loop.index0 % 3 == 0 %}
-            </div><br><div class="row">
-            {% endif %}
-            <div class="col-sm-4">
-                {% include 'product_card.html.twig' %}
+            {% include 'product_card.html.twig' %}
+                {% if loop.index % 3 == 0 %}
             </div>
+            <br>
+            <div class="card-group">
+                {% endif %}
             {% endfor %}
-            </div>
+        </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

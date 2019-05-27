@@ -63,7 +63,8 @@ class OrderingType extends AbstractType
             }
             ])
             ->add('notes', TextType::class, [
-                'label' => 'Poznámka'
+                'label' => 'Poznámka',
+                'required' => false
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [

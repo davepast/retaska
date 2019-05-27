@@ -10,17 +10,6 @@
             <li class="nav-item {{ route ==  'homepage' ? 'active' }}">
                 <a class="nav-link" href="{{ path('homepage') }}">Zpět na obchod <span class="sr-only">(current)</span></a>
             </li>
-
-
-
-
-
-            <!-- disabled item
-             <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li> --!>
-
-
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <ul class="navbar-nav mr-auto">
@@ -28,16 +17,16 @@
                     <a class="nav-link" href="{{ path('admin_homepage') }}">Administrace</a>
                 </li>
                 <li id="prod" class="nav-item {{ route starts with  'product' ? 'active' }}">
-                    <a class="nav-link" href="{{ path('product_index') }}" {{ route starts with  'product' ? 'onclick="return false;"' }}>Správa produktů</a>
+                    <a class="nav-link" href="{{ path('product_index') }}" {{ route == 'product_index' ? 'onclick="return false;"' }}>Správa produktů</a>
                 </li>
                 <li id="cat" class="nav-item {{ route starts with  'category' ? 'active' }}">
-                    <a class="nav-link" href="{{ path('category_index') }}" {{ route starts with  'category' ? 'onclick="return false;"' }}>Správa kategorií</a>
+                    <a class="nav-link" href="{{ path('category_index') }}" {{ route ==  'category_index' ? 'onclick="return false;"' }}>Správa kategorií</a>
                 </li>
                 <li id="order" class="nav-item {{ route starts with  'ordering' ? 'active' }}">
-                    <a class="nav-link" href="{{ path('ordering_index') }}" {{ route starts with  'ordering' ? 'onclick="return false;"' }}>Správa objednávek</a>
+                    <a class="nav-link" href="{{ path('ordering_index') }}" {{ route ==  'ordering_index' ? 'onclick="return false;"' }}>Správa objednávek</a>
                 </li>
                 <li id="user" class="nav-item {{ route starts with  'user' ? 'active' }}">
-                    <a class="nav-link" href="{{ path('user_index') }}" {{ route starts with  'user' ? 'onclick="return false;"' }}>Správa uživatelů</a>
+                    <a class="nav-link" href="{{ path('user_index') }}" {{ route ==  'user_index' ? 'onclick="return false;"' }}>Správa uživatelů</a>
                 </li>
                 <li id="login" class="nav-item">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}

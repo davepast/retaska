@@ -5,7 +5,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             {#<li class="nav-item {{ route ==  'homepage' ? 'active' }}">
                 <a class="nav-link" href="{{ path('homepage') }}" {{ route ==  'homepage' ? 'onclick="return false;"' }}>Domů</a>
             </li>#}
@@ -18,33 +18,20 @@
             <li class="nav-item {{ route starts with  'basket' ? 'active' }}">
                 <a class="nav-link" href="{{ path('basket_index') }}" {{ route ==  'basket_index' ? 'onclick="return false;"' }}>Košík</a>
             </li>
-            {#
-            <li class="nav-item {{ route starts with  'search' ? 'active' }}">
-                <a class="nav-link" href="{{ path('search') }}" {{ route ==  'search' ? 'onclick="return false;"' }}>Vyhledávání</a>
-            </li>
-            #}
         </ul>
-        <ul class="navbar-nav mr-auto align="right">
-            <li>
-            <form action="{{ path('search') }}" class="form-inline my-2 my-lg-0" method="get">
+        <form action="{{ path('search') }}" class="form-inline my-2 my-lg-0" method="get">
+            <ul class="navbar-nav mr-auto">
+                <li id="admin" class="nav-item">
                 <input class="form-control mr-sm-2" type="search" id="search" name="search" placeholder="Vyhledat" aria-label="Hledat">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Hledat</button>
-            </form>
-            </li>
-            <li class="nav-item {{ route ==  'admin_homepage' ? 'active' }}">
-                <a class="nav-link" href="{{ path('admin_homepage') }}">Administrace</a>
-            </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:gray" href="{{ path('admin_homepage') }}">Administrace</a>
+                </li>
+            </ul>
 
-        </ul>
-        <div class="form-inline my-2 my-lg-0">
+        </form>
 
-
-{#
-        {{ route starts with 'search' ? form_start(searchForm) }}
-        {{ route starts with 'search' ? form_widget(searchForm.search) }}
-        {{ route starts with 'search' ? form_widget(searchForm.send) }}
-        {{ route starts with 'search' ? form_end(searchForm) }}
-#}
-        </div>
     </div>
+
 </nav>

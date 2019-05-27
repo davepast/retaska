@@ -26,11 +26,6 @@ class Ordering
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Range(
-     *     min="100000000",
-     *     max="999999999",
-     *     minMessage="Zadejte platné telefonní číslo",
-     *     maxMessage="Zadejte platné telefonní číslo")
      */
     private $telephone;
 

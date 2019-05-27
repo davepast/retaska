@@ -4,7 +4,6 @@
 
 {% block body %}
     <h1>Ordering index</h1>
-
     <table class="table">
         <thead>
             <tr>
@@ -24,7 +23,7 @@
         <tbody>
         {% for ordering in orderings %}
             <tr>
-                <td>{{ ordering.id }}</td>s
+                <td>{{ ordering.id }}</td>
                 <td>{{ ordering.totalPrice }}</td>
                 <td>{{ ordering.email }}</td>
                 <td>{{ ordering.telephone }}</td>

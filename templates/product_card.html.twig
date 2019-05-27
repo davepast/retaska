@@ -1,53 +1,60 @@
-<div class="card" style="width: 18rem; " id="category-{{ product.category.id }}">
+<div class="card" style="width: 18rem;'" id="category-{{ product.category.id }}">
+       <h5 class="card-header">{{ product.name|capitalize }}</h5>
     <div class="card-body">
-        <h5 class="card-title">{{ product.name|capitalize }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{% if product.stock < 1 %} Není skladem {% else %} {{ product.stock }} ks skladem {% endif %}</h6>
         {% if product.description|length > 65 %}
         <p class="card-text" id="card-text-{{ product.id }}">{{ product.description|slice(0, 65) |capitalize }} <a href="#" id="card-text-{{ product.id }}">...více</a></p>
             {% else %}
                 <p class="card-text">{{ product.description|capitalize }}</p>
             {% endif %}
             <p class="card-text">Kategorie: <a href="{{ path('list_id', {'id': product.category.id } ) }}">{{ product.category.description|capitalize }}</a></p>
-            <table>
-                <td>
-                    <a href="{{ path('detail', {'id': product.id }) }}" class="btn btn-info detail">Detail</a>
-                </td>
-                <form method="get" action="{{ path('basket_add_to_cart', {id: product.id}) }}">
+
+        <table>
+            <td>
+                <a href="{{ path('detail', {'id': product.id }) }}" class="btn btn-info detail">Detail</a>
+            </td>
+
+            <form method="get" action="{{ path('basket_add_to_cart', {id: product.id}) }}">
                 <td>
                     {% if product.stock < 1 %}
                         <script>
                             $('a.btn.btn-success#'+{{ product.id }}).hide();
                         </script>
                     {% else %}
-                        <select class="form-control" id="sel-{{ product.id }}" style="width: 55px" name="count">
+                        <select aria-label="Select amount" class="form-control" id="sel-{{ product.id }}" style="width: 55px" name="count">
                             {% for i in range (1, product.stock) %}
                                 <option>{{ i }}</option>
                             {% endfor %}
                         </select>
                     {% endif %}
                 </td>
-                <td>
+              <td>
+                    <button type="submit" id="{{ product.id}}" class="btn btn-success">Do košíku</button>
 
-                    <button type="submit" id="{{ product.id}}" href="" class="btn btn-success">Do košíku</button>
                 </td>
-                </form>
-            </table>
-            {% if product.stock <= 0 %}
-                <script>
-                    $('button.btn.btn-success#'+{{ product.id }}).hide();
-                </script>
-            {% endif %}
-                <script>
-                    $('a#card-text-{{ product.id }}').on('click', function (e) {
-                        e.preventDefault();
-                        $('a#card-text-{{ product.id }}').text('');
-                        $('p#card-text-{{ product.id }}').text('{{ product.description|capitalize }}');
-                    });
-                </script>
-            {% if route == 'detail' %}
-                <script>
-                    $('button.detail').hide();
-                </script>
-            {% endif %}
+            </form>
+            </tr>
+        </table>
+
+
+        {% if product.stock <= 0 %}
+            <script>
+                $('button.btn.btn-success#'+{{ product.id }}).hide();
+            </script>
+        {% endif %}
+            <script>
+                $('a#card-text-{{ product.id }}').on('click', function (e) {
+                    e.preventDefault();
+                    $('a#card-text-{{ product.id }}').text('');
+                    $('p#card-text-{{ product.id }}').text('{{ product.description|capitalize }}');
+                });
+            </script>
+        {% if route == 'detail' %}
+            <script>
+                $('button.detail').hide();
+            </script>
+        {% endif %}
+    </div>
+    <div class="card-footer">
+        <small class="text-muted">{% if product.stock < 1 %} Není skladem {% else %} {{ product.stock }} ks skladem {% endif %}</small>
     </div>
 </div>

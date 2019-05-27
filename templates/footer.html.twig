@@ -1,41 +1,27 @@
 <br>
-<footer class="page-footer font-small blue pt-4" style="background: darkgrey; color: #000;">
-    <div class="container-fluid text-center text-md-left">
-        <div class="row justify-content-md-center">
-            <div class="col-md-7 mt-md-0 mt-7">
-
-
-            <table>
-                <tbody>
-                <tr>
-                    <td>
-                        <b>Eshop reTaška.cz</b>
-                    </td>
-                    <td>
-                        |
-                    </td>
-                    <td>
-                        <a style="color:black" class="nav-link {{ route ==  'homepage' ? 'active' }}" href="{{ path('homepage') }}" {{ route ==  'homepage' ? 'onclick="return false;"' }}>Domů</a>
-                    </td>
-                    <td>
-                        |
-                    </td>
-                    <td>
-                        <a style="color:black" class="nav-link {{ route ==  'list' ? 'active' }}" href="{{ path('list') }}" {{ route ==  'list' ? 'onclick="return false;"' }}>Produkty</a>
-                    </td>
-                    <td>
-                        <b>Telefon: </b>+420 774 219 386
-                    </td>
-                    <td>
-                        |<b>Email</b> <a style="color:black" href="mailto:info@retaska.cz">info@retaska.cz</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+<footer class="footer text-center py-3" style="background: darkgrey; color: #000;">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm">
+                    <a style="color:black" class="{{ route ==  'homepage' ? 'active' }}" href="{{ path('homepage') }}" {{ route ==  'homepage' ? 'onclick="return false;"' }}>reTaška.cz</a>
+                </div>
+                <div class="col-sm">
+                    <a style="color:black" class="{{ route ==  'list' ? 'active' }}" href="{{ path('list') }}" {{ route ==  'list' ? 'onclick="return false;"' }}>Produkty</a>
+                </div>
+                <div class="col-sm">
+                    +420 774 219 386
+                </div>
+                <div class="col-sm">
+                    <a style="color:black" href="mailto:info@retaska.cz">info@retaska.cz</a>
+                </div>
+                <div class="col-sm-2"
             </div>
-            <hr class="clearfix w-100 d-md-none pb-3">
         </div>
+            <hr class="clearfix w-100 d-md-none pb-3">
     </div>
-    <div class="footer-copyright text-center py-3">© 2019 Copyright David Pastuszek
+    <div class="footer-copyright text-center py-3">
+        © 2019 Copyright David Pastuszek
     </div>
 </footer>

@@ -43,17 +43,6 @@ class Product
      */
     private $category;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ordering", mappedBy="product")
-     */
-    private $orderings;
-
-    public function __construct()
-    {
-        $this->orders = new ArrayCollection();
-        $this->orderings = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -115,37 +104,6 @@ class Product
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Ordering[]
-     */
-    public function getOrderings(): Collection
-    {
-        return $this->orderings;
-    }
-
-    public function addOrdering(Ordering $ordering): self
-    {
-        if (!$this->orderings->contains($ordering)) {
-            $this->orderings[] = $ordering;
-            $ordering->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrdering(Ordering $ordering): self
-    {
-        if ($this->orderings->contains($ordering)) {
-            $this->orderings->removeElement($ordering);
-            // set the owning side to null (unless already changed)
-            if ($ordering->getProduct() === $this) {
-                $ordering->setProduct(null);
-            }
-        }
 
         return $this;
     }
